@@ -4,8 +4,20 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import {useEffect} from 'react';
+import {DeviceMotion} from 'expo-sensors';
 
 export default function HomeScreen() {
+
+
+  useEffect(() => {
+    const subscription = DeviceMotion.addListener(({orientation}) => {
+      console.log('sensor');
+    });
+
+    return () => subscription?.remove();
+  }, []);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
